@@ -1,0 +1,20 @@
+version: "3"
+services:
+  arduino-ide:
+    image: arduino-ide
+    environment:
+      - DISPLAY=:0
+      - PULSE_SERVER=/mnt/wslg/PulseServer
+      - WAYLAND_DISPLAY=wayland-0
+      - XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir
+    tty: true
+    stdin_open: true
+    privileged: true
+    cap_add:
+      - SYS_ADMIN
+    volumes:
+      - \\wsl.localhost\${DISTRIBUTION}\mnt\wslg:/mnt/wslg
+      - \\wsl.localhost\${DISTRIBUTION}\tmp\.X11-unix:/tmp/.X11-unix
+      - ${SKETCH_PATH}:/home/${ARDUINO_USER}/MySource
+    command: ./arduino-ide_2.2.1_Linux_64bit/arduino-ide
+    container_name: arduino-ide

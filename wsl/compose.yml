@@ -1,0 +1,18 @@
+version: "3"
+services:
+  arduino-ide:
+    image: arduino-ide
+    environment:
+      - DISPLAY=:0
+    tty: true
+    stdin_open: true
+    privileged: true
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/ttyACM0:/dev/ttyACM0
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ${SKETCH_PATH}:/home/${ARDUINO_USER}/MySource
+    command: ./arduino-ide_2.2.1_Linux_64bit/arduino-ide
+    container_name: arduino-ide
